@@ -1,0 +1,11 @@
+A command-line tool that turns text like `2d6+3` into rolled dice and a total.
+Meant to teach five core concepts of RUST(Ownership and moves, Borrowing (&T, &mut T), String vs &str, Result and parsing, Tooling habits(cargo new, run, test, clippy and fmt)
+
+Definition of done: 
+1. Accept expressions in the forms `NdM`, `dM`, `NdM+K` and `NdM-K'. N=number of dice to roll, M=sides of the dice, K=ability bonuses(i.e warrior has a +3 on strength save)
+2. Define `struct DiceExpr { count: u32, sides: u32, modifier: i32 }` and a pure `fn parse_dice(input: &str) -> Result<DiceExpr, ParseError>
+3. Reject bad input without panicking: zero dice, zero sides, more than 100 dice, more than 1000 sides, and anything that is not an expression.
+4. Separate randomness from arithmetic: `main` generates the individual rolls, and a pure `fn total(&self, rolls: &[u32]) -> i32` computes the result.
+5. Print each roll and the total, for example `2d6+3 -> [4, 5] + 3 = 12`
+6. Write table-driven tests for valid forms, every error case and the arithmetic.
+7. Provide `just build`, `just test` and `just lint` targets, and make `cargo clippy -- -D warnings` pass.
